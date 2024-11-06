@@ -24,10 +24,10 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
+    // "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "extraFileExtensions": [".vue"]
+    "extraFileExtensions": [".vue"],
   },
   "plugins": ["@typescript-eslint", "simple-import-sort"],
   "rules": {
