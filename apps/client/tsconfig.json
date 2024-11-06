@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "compilerOptions": {
+    "composite": true
+  },
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ]
+}

@@ -1,0 +1,1 @@
+module.exports = require("@popover/tailwind-config/tailwind.config.cjs");
