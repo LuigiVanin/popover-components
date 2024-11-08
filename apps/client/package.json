@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@popover/tailwind-config": "workspace:^",
     "vue": "^3.5.12"
   },
   "devDependencies": {
+    "@popover/tailwind-config": "workspace:^",
     "@vitejs/plugin-vue": "^5.1.4",
+    "@popover/ui": "workspace:^",
     "vite": "^5.4.10",
     "vue-tsc": "^2.1.8"
   }

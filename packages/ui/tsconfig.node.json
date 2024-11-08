@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
+    "composite": true,
+    // NOTE: a problem on rollup happens when using a moduleResolution different from NodeNext, Node16 or Bundler, then we need to use NodeNext
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "allowSyntheticDefaultImports": true,
-    "composite": true,
+    "allowSyntheticDefaultImports": true
   },
+
+  // Include the vite.config.ts file
+  "include": ["vite.config.ts"]
 }

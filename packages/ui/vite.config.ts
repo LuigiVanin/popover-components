@@ -1,14 +1,16 @@
 import vue from "@vitejs/plugin-vue";
+import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    outDir: "./dist",
-    emptyOutDir: true,
+    // outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: false,
+
     lib: {
-      entry: "./src/main.ts",
+      entry: path.resolve(__dirname, "src/main.ts"),
       formats: ["es"],
       name: "ui",
     },

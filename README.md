@@ -1,6 +1,6 @@
 #### pnpm workspaces boiler plate:
 - [video](https://www.youtube.com/watch?v=HM03XGVlRXI)
-  - Current status (13:50)
+  - Current status (16:34)
   - ![In Progress](./assets/Group%201.svg)
 
 - [repo](https://github.com/mihailtd/demo-monorepo/tree/main)
@@ -8,6 +8,11 @@
 #### Adding module to workspace
 ```sh
 $ pnpm --filter @popover/client add @popover/tailwind-config@workspace:*
+```
+
+### Adding UI Module to module
+```sh
+$ pnpm --filter @popover/client add -D @popover/ui@workspace:*
 ```
 
 > [!warning]

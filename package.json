@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "pnpm --filter @popover/client",
     "ui": "pnpm --filter @popover/ui",
-    "dev:client": "pnpm --filter @popover/client dev"
+    "dev:client": "pnpm --filter @popover/client dev",
+    "dev": "pnpm --recursive --parallel --stream run dev"
   },
   "keywords": [],
   "author": "",

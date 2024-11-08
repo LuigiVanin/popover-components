@@ -1,8 +1,11 @@
-<script setup lang="ts">
-const msg = "Hello Vite + Vue!";
+<script lang="ts" setup>
 import { ref } from "vue";
 
-defineProps<{ msg: string }>();
+type Props = {
+  msg: string;
+};
+
+defineProps<Props>();
 
 const count = ref(0);
 </script>
@@ -13,7 +16,7 @@ const count = ref(0);
   <div class="card">
     <button
       type="button"
-      class="bg-brand-main md:bg-yellow-50"
+      class="bg-brand-main md:bg-yellow-2 rounded-md p-2"
       @click="count++"
     >
       count is {{ count }}

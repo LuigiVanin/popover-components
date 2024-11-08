@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { MyBrandButton } from "@popover/ui";
+
+import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="mx-2 mt-2 rounded-lg bg-red-200 p-5">
+    aaa
+    <HelloWorld msg="Vite + Vue" />
+    <MyBrandButton>Teste</MyBrandButton>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>

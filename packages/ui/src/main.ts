@@ -1,3 +1,13 @@
 import "./style.css";
 
-export { default as MyBrandButton } from "./MyBrandButton/MyBrandButton.vue";
+import { App } from "vue";
+
+import MyBrandButton from "./MyBrandButton/MyBrandButton.vue";
+
+export { MyBrandButton };
+
+export default {
+  install: (app: App) => {
+    app.component("MyBrandButton", MyBrandButton);
+  },
+};
