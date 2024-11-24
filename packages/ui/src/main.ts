@@ -2,12 +2,12 @@ import "./style.css";
 
 import { App } from "vue";
 
-import MyBrandButton from "./MyBrandButton/MyBrandButton.vue";
+import CoreButton from "./core/Button.vue";
 
-export { MyBrandButton };
+export { CoreButton };
 
 export default {
   install: (app: App) => {
-    app.component("MyBrandButton", MyBrandButton);
+    app.component("MyBrandButton", CoreButton);
   },
 };

@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { MyBrandButton } from "@popover/ui";
+import { cn } from "@popover/tw-utils";
+import { CoreButton } from "@popover/ui";
+import { onMounted } from "vue";
 
-import HelloWorld from "./components/HelloWorld.vue";
+onMounted(() => {
+  console.log(cn("p-5"));
+});
 </script>
 
 <template>
-  <div class="mx-2 mt-2 rounded-lg bg-red-200 p-5">
-    aaa
-    <HelloWorld msg="Vite + Vue" />
-    <MyBrandButton>Teste</MyBrandButton>
+  <div
+    class="shadow-soft hover:shadow-soft-active mx-2 mt-2 flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-100 p-5"
+  >
+    <CoreButton class="bg-primary-200 text-neutral-700"> Teste 1 </CoreButton>
+    <CoreButton class="bg-primary-400 text-neutral-100"> Teste 2 </CoreButton>
   </div>
 </template>
 

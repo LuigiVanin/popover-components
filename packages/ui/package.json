@@ -14,10 +14,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popover/tw-utils": "workspace:^",
     "vue": "^3.5.12"
   },
   "bundledDependencies": [
-    "@popover/tailwind-config"
+    "@popover/tailwind-config",
+    "@popover/tw-utils"
   ],
   "devDependencies": {
     "@popover/tailwind-config": "workspace:^",
