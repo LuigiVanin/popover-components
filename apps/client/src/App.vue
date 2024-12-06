@@ -9,11 +9,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="shadow-soft hover:shadow-soft-active mx-2 mt-2 flex flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-100 p-5"
-  >
-    <CoreButton class="bg-primary-200 text-neutral-700"> Teste 1 </CoreButton>
-    <CoreButton class="bg-primary-400 text-neutral-100"> Teste 2 </CoreButton>
+  <div class="flex h-[200vh] w-full flex-col">
+    <header class="bg-primary-500 h-16"></header>
+
+    <main class="h-full px-4 pt-10">
+      <div
+        class="shadow-soft hover:shadow-soft-active flex max-w-96 flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-100 p-5"
+      >
+        <CoreButton class="bg-primary-200 text-neutral-700">
+          Teste 1
+        </CoreButton>
+        <CoreButton class="bg-primary-400 text-neutral-100">
+          Teste 2
+        </CoreButton>
+      </div>
+    </main>
   </div>
 </template>
 

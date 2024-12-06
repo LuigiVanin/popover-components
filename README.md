@@ -1,8 +1,9 @@
+> [!warning]
+> Using node version 22.10.0
+
 #### pnpm workspaces boiler plate:
 - [video](https://www.youtube.com/watch?v=HM03XGVlRXI)
-  - Current status (16:34)
-  - ![In Progress](./assets/Group%201.svg)
-
+  - Complete
 - [repo](https://github.com/mihailtd/demo-monorepo/tree/main)
 
 #### Adding module to workspace
