@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from "@popover/tw-utils";
-import { CoreButton } from "@popover/ui";
+import { CoreButton, CorePopover } from "@popover/ui";
 import { onMounted } from "vue";
 
 onMounted(() => {
@@ -12,16 +12,27 @@ onMounted(() => {
   <div class="flex h-[200vh] w-full flex-col">
     <header class="bg-primary-500 h-16"></header>
 
-    <main class="h-full px-4 pt-10">
+    <main class="flex h-full flex-col gap-10 px-4 pt-10">
       <div
-        class="shadow-soft hover:shadow-soft-active flex max-w-96 flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-100 p-5"
+        class="shadow-soft hover:shadow-soft-active @container flex max-w-96 flex-col gap-2 rounded-lg border border-neutral-200 bg-neutral-100 p-5"
       >
-        <CoreButton class="bg-primary-200 text-neutral-700">
+        <h1 class="@xs:block hidden text-center">title</h1>
+        <CoreButton
+          variant="outlined"
+          type="button"
+          data-testid="uuid"
+          @click="(e) => false"
+        >
           Teste 1
         </CoreButton>
-        <CoreButton class="bg-primary-400 text-neutral-100">
-          Teste 2
-        </CoreButton>
+        <CoreButton class=""> Teste 2 </CoreButton>
+      </div>
+      <div class="wrapper">
+        <CorePopover>
+          <CoreButton class="px-4 py-1" size="md" variant="soft">
+            Teste 3
+          </CoreButton>
+        </CorePopover>
       </div>
     </main>
   </div>

@@ -3,11 +3,13 @@ import "./style.css";
 import { App } from "vue";
 
 import CoreButton from "./core/Button.vue";
+import CorePopover from "./core/popover/Popover.vue";
 
-export { CoreButton };
+export { CoreButton, CorePopover };
 
 export default {
   install: (app: App) => {
-    app.component("MyBrandButton", CoreButton);
+    app.component("CoreButton", CoreButton);
+    app.component("CorePopover", CorePopover);
   },
 };
