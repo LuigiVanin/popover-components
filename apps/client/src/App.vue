@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { cn } from "@popover/tw-utils";
 import { CoreButton, CorePopover } from "@popover/ui";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+
+const showPopover = ref(false);
 
 onMounted(() => {
   console.log(cn("p-5"));
@@ -28,10 +30,17 @@ onMounted(() => {
         <CoreButton class=""> Teste 2 </CoreButton>
       </div>
       <div class="wrapper">
-        <CorePopover>
-          <CoreButton class="px-4 py-1" size="md" variant="soft">
+        <CorePopover :show="showPopover">
+          <CoreButton
+            class="px-4 py-1"
+            size="md"
+            variant="soft"
+            @click="() => (showPopover = !showPopover)"
+          >
             Teste 3
           </CoreButton>
+
+          <template #content> abc </template>
         </CorePopover>
       </div>
     </main>
