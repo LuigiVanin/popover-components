@@ -30,7 +30,7 @@ onMounted(() => {
         <CoreButton class=""> Teste 2 </CoreButton>
       </div>
       <div class="wrapper">
-        <CorePopover :show="showPopover">
+        <CorePopover :show="showPopover" position="bottom left">
           <CoreButton
             class="px-4 py-1"
             size="md"
@@ -40,7 +40,13 @@ onMounted(() => {
             Teste 3
           </CoreButton>
 
-          <template #content> abc </template>
+          <template #content>
+            <div
+              class="h-20 w-40 rounded-md border border-zinc-200 bg-neutral-50 shadow-lg"
+            >
+              abc
+            </div>
+          </template>
         </CorePopover>
       </div>
     </main>
