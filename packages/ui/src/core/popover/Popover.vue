@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
 import { cn } from "@popover/tw-utils";
-import { computed, onMounted, ref } from "vue";
+import { onClickOutside, useElementBounding } from "@vueuse/core";
+import { computed, ref } from "vue";
 
 type TransitionClasses = {
   enterActiveClass: string;
@@ -16,6 +17,7 @@ type CorePopoverProps = {
   class?: string;
   wrapperClass?: string;
   teleported?: boolean;
+  persistent?: boolean;
   position?:
     | "top"
     | "bottom"
@@ -23,7 +25,7 @@ type CorePopoverProps = {
     | "top right"
     | "bottom left"
     | "bottom right";
-  show: boolean;
+  modelValue: boolean;
   transition?: TransitionClasses;
 };
 
@@ -32,17 +34,24 @@ const props = withDefaults(defineProps<CorePopoverProps>(), {
   class: "",
   wrapperClass: "",
   position: "top",
+  persistent: false,
   transition: () => ({
     enterActiveClass: "duration-150 ease-out",
     enterFromClass: "opacity-0 translate-y-3",
     enterToClass: "opacity-100 translate-y-0",
     leaveActiveClass: "duration-150 ease-in",
-    leaveFromClass: "opacity-100",
+    leaveFromClass: "",
     leaveToClass: "opacity-0 translate-y-3",
   }),
 });
 
 const popoverCoreRef = ref<HTMLElement | null>(null);
+const popoverContentRef = ref<HTMLElement | null>(null);
+
+const { top, height, width, bottom, left, right } = useElementBounding(
+  // eslint-disable-next-line
+  popoverCoreRef as any,
+);
 
 const positionVariants = {
   top: "bottom-full",
@@ -53,54 +62,49 @@ const positionVariants = {
   "bottom right": "right-0",
 };
 
-const elementClientRect = ref<Partial<DOMRect>>({
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-});
-
 const isValidElement = computed(() => {
-  const rect = elementClientRect.value;
+  if (!popoverCoreRef.value) {
+    return false;
+  }
   return Boolean(
-    rect.x ||
-      rect.y ||
-      rect.width ||
-      rect.height ||
-      rect.top ||
-      rect.right ||
-      rect.bottom ||
-      rect.left,
+    width.value ||
+      height.value ||
+      top.value ||
+      right.value ||
+      bottom.value ||
+      left.value,
   );
 });
 
 const popoverPositionStyle = computed(() => {
-  const topOffset =
-    props.position === "top" ? 0 : (elementClientRect.value.height ?? 0);
+  const topOffset = props.position === "top" ? 0 : (height.value ?? 0);
   return {
-    top: `${(elementClientRect.value.top || 0) + topOffset}px`,
-    left: `${elementClientRect.value.left || 0}px`,
-    width: `${elementClientRect.value.width || 0}px`,
+    top: `${(top.value || 0) + topOffset}px`,
+    left: `${left.value || 0}px`,
+    width: `${width.value || 0}px`,
     height: `0px`,
   };
-});
-
-onMounted(() => {
-  const clientRect = popoverCoreRef.value?.getBoundingClientRect();
-  if (clientRect) {
-    elementClientRect.value = clientRect;
-  }
 });
 
 const positionVariantsClasses = computed(
   () => positionVariants[props.position],
 );
 
-defineEmits(["update:modelValue"]);
+const closePopover = () => {
+  if (!props.persistent) {
+    emit("update:modelValue", false);
+  }
+};
+
+// eslint-disable-next-line
+onClickOutside(popoverContentRef as any, closePopover);
+
+interface PopoverEvents {
+  // eslint-disable-next-line
+  (event: "update:modelValue", value: boolean): void;
+}
+
+const emit = defineEmits<PopoverEvents>();
 </script>
 
 <template>
@@ -120,11 +124,13 @@ defineEmits(["update:modelValue"]);
         :leave-to-class="props.transition?.leaveToClass"
       >
         <div
-          v-if="isValidElement && props.show"
+          v-if="isValidElement && props.modelValue"
           class="popover-content bg-primary-800 fixed flex justify-center"
           :style="popoverPositionStyle"
         >
           <div
+            ref="popoverContentRef"
+            role="tooltip"
             :class="
               cn('popover-box absolute', positionVariantsClasses, props.class)
             "

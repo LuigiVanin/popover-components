@@ -16,7 +16,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Set Vue as an external dependency, so its not bundled into the library
-      external: ["vue", "@popover/tw-utils"],
+      external: ["vue", "@popover/tw-utils", "@vueuse/core"],
       output: {
         globals: {
           Vue: "vue",

@@ -30,7 +30,7 @@ onMounted(() => {
         <CoreButton class=""> Teste 2 </CoreButton>
       </div>
       <div class="wrapper">
-        <CorePopover :show="showPopover" position="bottom left">
+        <CorePopover v-model="showPopover" position="bottom left">
           <CoreButton
             class="px-4 py-1"
             size="md"
