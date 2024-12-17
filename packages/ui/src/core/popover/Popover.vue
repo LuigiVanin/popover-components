@@ -1,8 +1,9 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script lang="ts" setup>
 import { cn } from "@popover/tw-utils";
 import { onClickOutside, useElementBounding } from "@vueuse/core";
 import { computed, ref } from "vue";
+
+import type { Position } from "../../types";
 
 type TransitionClasses = {
   enterActiveClass: string;
@@ -18,13 +19,7 @@ type CorePopoverProps = {
   wrapperClass?: string;
   teleported?: boolean;
   persistent?: boolean;
-  position?:
-    | "top"
-    | "bottom"
-    | "top left"
-    | "top right"
-    | "bottom left"
-    | "bottom right";
+  position?: Position;
   modelValue: boolean;
   transition?: TransitionClasses;
 };
