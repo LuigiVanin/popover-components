@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { Coffee } from "lucide-vue-next";
+import { computed } from "vue";
 
 import CoreButton from "./Button.vue";
 
@@ -57,8 +59,32 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Normal: Story = {
+export const LoadingButton: Story = {
   args: {
     variant: "normal",
+    loading: true,
+  },
+};
+
+export const IconButton: Story = {
+  render: (args) => {
+    return {
+      components: { CoreButton, Coffee },
+      setup() {
+        // const iconSize = computed(() => {
+        //   const sizeTable: Record<SizeKey, number> = {
+        //     sm: 16,
+        //     md: 20,
+        //     lg: 24,
+        //   }
+        //   return sizeTable[args.size || 'md'];
+        // })
+        return { args };
+      },
+      template: `
+      <CoreButton v-bind="args" class="p-2">
+        <Coffee v-if="!args.loading" />
+      </CoreButton>`,
+    };
   },
 };

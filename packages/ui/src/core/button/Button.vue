@@ -39,6 +39,13 @@ const sizeVariants: Record<SizeKey, string> = {
   xl: "px-12 py-3 text-xl",
 };
 
+const loadingSizeVariants: Record<SizeKey, string> = {
+  sm: "h-3 w-3",
+  md: "h-4 w-4",
+  lg: "h-5 w-5",
+  xl: "h-8 w-8",
+};
+
 const emit = defineEmits({
   // eslint-disable-next-line
   click: (e: MouseEvent) => true,
@@ -62,7 +69,12 @@ const emit = defineEmits({
   >
     <slot v-if="props.loading" name="loading">
       <span
-        class="border-t-primary-400 h-4 w-4 animate-spin rounded-full border-2"
+        :class="
+          cn(
+            'border-t-primary-400 h-4 w-4 animate-spin rounded-full border-2',
+            loadingSizeVariants[props.size] || '',
+          )
+        "
       />
     </slot>
     <slot />
