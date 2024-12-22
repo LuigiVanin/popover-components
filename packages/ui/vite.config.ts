@@ -6,8 +6,8 @@ import dts from "vite-plugin-dts";
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    // outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: false,
+    outDir: path.resolve(__dirname, "dist"),
+    emptyOutDir: true,
 
     lib: {
       entry: path.resolve(__dirname, "src/main.ts"),
@@ -16,7 +16,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Set Vue as an external dependency, so its not bundled into the library
-      external: ["vue", "@popover/tw-utils", "@vueuse/core"],
+      external: ["vue"],
       output: {
         globals: {
           Vue: "vue",

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { cn } from "@popover/tw-utils";
 import { onClickOutside, useElementBounding } from "@vueuse/core";
-import { computed, ref } from "vue";
+import { computed, Ref, ref } from "vue";
 
 import type { Position } from "../../types";
 
@@ -40,8 +40,8 @@ const props = withDefaults(defineProps<CorePopoverProps>(), {
   }),
 });
 
-const popoverCoreRef = ref<HTMLElement | null>(null);
-const popoverContentRef = ref<HTMLElement | null>(null);
+const popoverCoreRef: Ref<HTMLElement | null> = ref(null);
+const popoverContentRef: Ref<HTMLElement | null> = ref(null);
 
 const { top, height, width, bottom, left, right } = useElementBounding(
   // eslint-disable-next-line
@@ -85,9 +85,17 @@ const positionVariantsClasses = computed(
   () => positionVariants[props.position],
 );
 
-const closePopover = () => {
+const closePopover = (event: MouseEvent) => {
   if (!props.persistent) {
-    emit("update:modelValue", false);
+    let hasTargetElement = false;
+
+    if (popoverCoreRef.value?.children) {
+      hasTargetElement = Array.from(popoverCoreRef.value.children).some(
+        (child) => child.contains(event.target as Node),
+      );
+    }
+
+    if (!hasTargetElement) emit("update:modelValue", false);
   }
 };
 

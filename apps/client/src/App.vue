@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { cn } from "@popover/tw-utils";
-import { CoreButton, CorePopover } from "@popover/ui";
+import { CoreButton, CorePopover, CoreSelect } from "@popover/ui";
 import { onMounted, ref } from "vue";
 
 const showPopover = ref(false);
+const option = ref(null);
 
 onMounted(() => {
   console.log(cn("p-5"));
@@ -44,11 +45,21 @@ onMounted(() => {
             <div
               class="h-20 w-40 rounded-md border border-zinc-200 bg-neutral-50 shadow-lg"
             >
-              abc
+              <span class="bg-red-300"> abc </span>
             </div>
           </template>
         </CorePopover>
       </div>
+
+      <CoreSelect
+        v-model="option"
+        :options="[
+          {
+            label: 'Teste de valor',
+            value: 'teste',
+          },
+        ]"
+      />
     </main>
   </div>
 </template>

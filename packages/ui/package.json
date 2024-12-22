@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite build --watch --debug",
+    "dev": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
