@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { cn } from "@popover/tw-utils";
+import type { SizeKey, VariantKey } from "../../types";
 
-type VariantKey = "normal" | "outlined" | "link" | "simple" | "soft";
-type SizeKey = "sm" | "md" | "lg" | "xl";
+
 
 type ButtonProps = {
   class?: string;

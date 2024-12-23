@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/vue3";
 import { Coffee } from "lucide-vue-next";
 import { computed } from "vue";
 
+import { SizeKey } from "../../types";
 import CoreButton from "./Button.vue";
 
 const meta: Meta<typeof CoreButton> = {
@@ -22,12 +23,9 @@ const meta: Meta<typeof CoreButton> = {
       control: "select",
       options: ["button", "submit", "reset"],
     },
-    class: {
-      control: "text",
-    },
     size: {
       control: "select",
-      options: ["sm", "md", "lg"],
+      options: ["sm", "md", "lg", "xl"],
     },
     disabled: {
       control: "boolean",
@@ -48,7 +46,7 @@ const meta: Meta<typeof CoreButton> = {
   decorators: [
     () => ({
       template: `
-        <div class="flex flex-row justify-center w-full">
+        <div class="flex flex-row justify-center w-full min-h-[25vh] gap-5 items-center">
           <story/>
         </div>`,
     }),
@@ -63,6 +61,22 @@ export const LoadingButton: Story = {
   args: {
     variant: "normal",
     loading: true,
+    default: "",
+  },
+  render: (args) => {
+    return {
+      components: { CoreButton },
+      setup() {
+        return { args };
+      },
+      template: `
+        <CoreButton 
+          v-bind="args" 
+          :loading="args.loading" 
+        >
+          {{args.default || args.loading ? "Loading..." : "Ready!"}}
+        </CoreButton>`,
+    };
   },
 };
 
@@ -71,20 +85,63 @@ export const IconButton: Story = {
     return {
       components: { CoreButton, Coffee },
       setup() {
-        // const iconSize = computed(() => {
-        //   const sizeTable: Record<SizeKey, number> = {
-        //     sm: 16,
-        //     md: 20,
-        //     lg: 24,
-        //   }
-        //   return sizeTable[args.size || 'md'];
-        // })
-        return { args };
+        const iconSize = computed(() => {
+          const sizeTable: Record<SizeKey, number> = {
+            sm: 14,
+            md: 20,
+            lg: 24,
+            xl: 32,
+          };
+          return sizeTable[args.size || "md"];
+        });
+        return { args, iconSize };
       },
       template: `
-      <CoreButton v-bind="args" class="p-2">
-        <Coffee v-if="!args.loading" />
-      </CoreButton>`,
+        <CoreButton v-bind="args" class="p-2">
+          <Coffee v-if="!args.loading" :size="iconSize" />
+        </CoreButton>
+        <CoreButton v-bind="args">Teste</CoreButton>
+      `,
     };
+  },
+};
+
+export const NormalButton: Story = {
+  name: "Variant | Normal Button",
+  args: {
+    variant: "normal",
+    default: "Normal Button",
+  },
+};
+
+export const OutlinedButton: Story = {
+  name: "Variant | Outlined Button",
+  args: {
+    variant: "outlined",
+    default: "Outlined Button",
+  },
+};
+
+export const LinkButton: Story = {
+  name: "Variant | Link Button",
+  args: {
+    variant: "link",
+    default: "Link Button",
+  },
+};
+
+export const SimpleButton: Story = {
+  name: "Variant | Simple Button",
+  args: {
+    variant: "simple",
+    default: "Simple Button",
+  },
+};
+
+export const SoftButton: Story = {
+  name: "Variant | Soft Button",
+  args: {
+    variant: "soft",
+    default: "Soft Button",
   },
 };
