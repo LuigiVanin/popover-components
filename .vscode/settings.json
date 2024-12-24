@@ -1,0 +1,23 @@
+{
+  "eslint.experimental.useFlatConfig": false,
+  "eslint.useFlatConfig": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on" 
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    ".*Styles.*" // Add ".*Styles.*" (or whatever matches your naming scheme)
+  ],
+  "tailwindCSS.includeLanguages": {
+    "vue": "html",
+  },
+  "[vue]": {
+    "editor.formatOnSave": true,
+  }
+
+}

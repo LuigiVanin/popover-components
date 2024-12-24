@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Set correct node version for project",
+      "type": "shell",
+      "command": "[ $(node -v) != \"v22.10.0\" ] && nvm use 22.10.0 || echo 'Correct version already set'",
+      "linux": {
+        "command": "[ $(node -v) != \"v22.10.0\" ] && nvm use 22.10.0 || echo 'Correct version already set'"
+      },
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
