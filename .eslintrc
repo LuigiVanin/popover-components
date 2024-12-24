@@ -34,7 +34,8 @@
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     "vue/multi-word-component-names": [
-      "error", {
+      "error",
+      {
         "ignores": ["default"]
       }
     ]
@@ -55,7 +56,23 @@
       "rules": {
         // FIXME: Causes problems with imports from Vue
         "import/named": "off",
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error", // or "error"
+          {
+            "argsIgnorePattern": "^(_|event)",
+            "varsIgnorePattern": "^(_|event)",
+            "caughtErrorsIgnorePattern": "^(_|event)"
+          }
+        ],
+        "no-unused-vars": [
+          "error", // or "error"
+          {
+            "argsIgnorePattern": "^(_|event)",
+            "varsIgnorePattern": "^(_|event)",
+            "caughtErrorsIgnorePattern": "^(_|event)"
+          }
+        ]
       }
     }
   ]

@@ -2,11 +2,11 @@ import "./style.css";
 
 import { App } from "vue";
 
-import CoreButton from "./core/Button.vue";
+import CoreButton from "./core/button/Button.vue";
 import CorePopover from "./core/popover/Popover.vue";
 import CoreSelect from "./core/select/Select.vue";
 
-export { CoreButton, CorePopover };
+export { CoreButton, CorePopover, CoreSelect };
 
 export default {
   install: (app: App) => {
