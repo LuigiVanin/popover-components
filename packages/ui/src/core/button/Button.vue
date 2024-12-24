@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { cn } from "@popover/tw-utils";
+
 import type { SizeKey, VariantKey } from "../../types";
-
-
 
 type ButtonProps = {
   class?: string;
@@ -29,7 +28,7 @@ const variants: Record<VariantKey, string | undefined> = {
   link: "shadow-none hover:underline hover:opacity-70 text-primary-500",
   simple:
     "shadow-sm hover:opacity-70 text-neutral-600 border border-neutral-300",
-  soft: "bg-primary-200 border border-primary-200 text-primary-500 !shadow-sm hover:bg-primary-200 hover:border-primary-400 hover:opacity-90",
+  soft: "bg-primary-200 border border-primary-200 text-primary-500 !shadow-sm hover:border-primary-400 hover:opacity-90",
 };
 
 const sizeVariants: Record<SizeKey, string> = {
@@ -47,8 +46,13 @@ const loadingSizeVariants: Record<SizeKey, string> = {
 };
 
 const emit = defineEmits({
-  // eslint-disable-next-line
-  click: (e: MouseEvent) => true,
+  click: (event: MouseEvent) => true,
+  focus: (event: FocusEvent) => true,
+  blur: (event: FocusEvent) => true,
+  mouseenter: (event: MouseEvent) => true,
+  mouseleave: (event: MouseEvent) => true,
+  mousedown: (event: MouseEvent) => true,
+  mouseup: (event: MouseEvent) => true,
 });
 </script>
 
@@ -66,8 +70,14 @@ const emit = defineEmits({
     :type="props.type"
     :disabled="props.disabled"
     @click="emit('click', $event)"
+    @focus="emit('focus', $event)"
+    @blur="emit('blur', $event)"
+    @mouseenter="emit('mouseenter', $event)"
+    @mouseleave="emit('mouseleave', $event)"
+    @mousedown="emit('mousedown', $event)"
+    @mouseup="emit('mouseup', $event)"
   >
-    <slot v-if="props.loading" name="loading">
+    <slot v-if="props.loading" name="loadingPrepend">
       <span
         :class="
           cn(
