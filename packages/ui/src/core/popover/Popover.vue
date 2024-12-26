@@ -120,6 +120,7 @@ defineExpose({
   <div
     ref="popoverCoreRef"
     class="popover-wrapper inline-flex items-start"
+    v-bind="$attrs"
     :class="cn(props.wrapperClass)"
   >
     <slot />
