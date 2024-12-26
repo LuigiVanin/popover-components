@@ -24,7 +24,7 @@ onMounted(() => {
           variant="outlined"
           type="button"
           data-testid="uuid"
-          @click="(e) => false"
+          @click="() => false"
         >
           Teste 1
         </CoreButton>
@@ -53,10 +53,19 @@ onMounted(() => {
 
       <CoreSelect
         v-model="option"
+        class="w-64"
         :options="[
           {
-            label: 'Teste de valor',
+            label: 'Teste de valor 1',
             value: 'teste',
+          },
+          {
+            label: 'Teste de valor 2',
+            value: 'teste 2',
+          },
+          {
+            label: 'Teste de valor 3',
+            value: 'teste 3',
           },
         ]"
       />

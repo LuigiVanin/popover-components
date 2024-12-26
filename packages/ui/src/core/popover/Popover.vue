@@ -108,6 +108,12 @@ interface PopoverEvents {
 }
 
 const emit = defineEmits<PopoverEvents>();
+
+defineExpose({
+  popoverCoreRef,
+  popoverContentRef,
+  closePopover,
+});
 </script>
 
 <template>
