@@ -8,7 +8,7 @@ import { ChevronDown } from "lucide-vue-next";
 import { computed, ref } from "vue";
 
 import { CorePopover } from "../../main";
-import type { Position } from "../../types/index";
+import type { Position, SizeKey } from "../../types/index";
 
 type SelectProps = {
   // TODO: add disabled, loading and size props (maybe variant)
@@ -22,6 +22,7 @@ type SelectProps = {
   name?: string;
   disabled?: boolean;
   loading?: boolean;
+  size?: SizeKey;
 };
 
 const props = withDefaults(defineProps<SelectProps>(), {
@@ -33,6 +34,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   name: undefined,
   disabled: false,
   loading: false,
+  size: "md",
 });
 
 const positionVariantTable: Record<Position, string> = {
@@ -44,6 +46,16 @@ const positionVariantTable: Record<Position, string> = {
   "top right": "mb-2",
 };
 
+const sizeVariantTable: Record<
+  SizeKey,
+  { wrapper: string; icon: number; options: string }
+> = {
+  sm: { wrapper: "h-7  text-sm px-2", icon: 16, options: "text-sm" },
+  md: { wrapper: "h-9 text-base px-2", icon: 20, options: "text-base" },
+  lg: { wrapper: "h-10 text-lg px-3", icon: 22, options: "text-base" },
+  xl: { wrapper: "h-12  text-xl px-4", icon: 24, options: "text-lg" },
+};
+
 const show = ref(false);
 const currentIndex = ref(0);
 
@@ -51,6 +63,10 @@ const inputRef = ref<HTMLInputElement | null>(null);
 
 const positionVariant = computed(() => {
   return positionVariantTable[props.position || "bottom"];
+});
+
+const sizeVariant = computed(() => {
+  return sizeVariantTable[props.size || "md"];
 });
 
 const listboxId = computed(
@@ -120,9 +136,10 @@ const emit = defineEmits({
     :class="cn('w-full', positionVariant)"
     :wrapper-class="
       cn(
-        'relative wrapper flex w-full cursor-pointer items-center gap-2 rounded-md border border-neutral-300 px-2 h-9 focus-within:shadow-md focus-within:border-primary-400 hover:border-primary-400 focus-within:shadow-primary-300',
+        'relative wrapper flex w-full cursor-pointer items-center gap-2 rounded-md border border-neutral-300 focus-within:shadow-md focus-within:border-primary-400 hover:border-primary-400 focus-within:shadow-primary-300',
         (props.disabled || props.loading) &&
           'opacity-80 cursor-not-allowed hover:border-neutral-300 focus-within:border-neutral-300 focus-within:shadow-md bg-neutral-50',
+        sizeVariant.wrapper,
         props.class,
       )
     "
@@ -152,7 +169,7 @@ const emit = defineEmits({
     </div>
     <slot name="sufix" :active="show">
       <ChevronDown
-        :size="20"
+        :size="sizeVariant.icon"
         :class="cn('ml-auto transition-all duration-300', show && 'rotate-180')"
       />
     </slot>
@@ -182,7 +199,8 @@ const emit = defineEmits({
         role="listbox"
         :class="
           cn(
-            'flex w-full flex-col gap-1 rounded-md border border-zinc-200 bg-white p-2 shadow-lg',
+            'z-50 flex w-full flex-col gap-1 rounded-md border border-zinc-200 bg-white p-2 shadow-lg',
+            sizeVariant.options,
             props.contentClass,
           )
         "

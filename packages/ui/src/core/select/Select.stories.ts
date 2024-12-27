@@ -29,6 +29,10 @@ const meta: Meta<typeof CoreSelect> = {
         "bottom right",
       ],
     },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "xl"],
+    },
   },
 } satisfies Meta<typeof CoreSelect>;
 
