@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from "@popover/tw-utils";
 import { CoreButton, CorePopover, CoreSelect } from "@popover/ui";
+import { Coffee } from "lucide-vue-next";
 import { onMounted, ref } from "vue";
 
 const showPopover = ref(false);
@@ -54,6 +55,7 @@ onMounted(() => {
       <CoreSelect
         v-model="option"
         class="w-64"
+        position="top"
         :options="[
           {
             label: 'Teste de valor 1',
@@ -69,6 +71,45 @@ onMounted(() => {
           },
         ]"
       />
+
+      <CoreSelect
+        v-model="option"
+        class="h-9 w-64 py-0"
+        :options="[
+          {
+            label: 'Teste de valor 1',
+            value: 'teste',
+          },
+          {
+            label: 'Teste de valor 2',
+            value: 'teste 2',
+          },
+          {
+            label: 'Teste de valor 3',
+            value: 'teste 3',
+          },
+        ]"
+      >
+        <template #prefix>
+          <div
+            class="flex h-full items-center border-r border-neutral-300 pr-2"
+          >
+            <Coffee :size="20" />
+          </div>
+        </template>
+        <template #option="{ item, index, isSelected }">
+          <span
+            :class="
+              cn(
+                'w-full px-3 py-1',
+                isSelected &&
+                  'bg-primary-200 text-primary-500 rounded-[5px] font-semibold',
+              )
+            "
+            >{{ index + 1 }}-{{ item.label }}</span
+          >
+        </template>
+      </CoreSelect>
     </main>
   </div>
 </template>
