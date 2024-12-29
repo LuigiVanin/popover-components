@@ -108,12 +108,19 @@ interface PopoverEvents {
 }
 
 const emit = defineEmits<PopoverEvents>();
+
+defineExpose({
+  popoverCoreRef,
+  popoverContentRef,
+  closePopover,
+});
 </script>
 
 <template>
   <div
     ref="popoverCoreRef"
     class="popover-wrapper inline-flex items-start"
+    v-bind="$attrs"
     :class="cn(props.wrapperClass)"
   >
     <slot />
