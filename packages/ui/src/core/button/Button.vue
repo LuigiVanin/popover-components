@@ -45,15 +45,15 @@ const loadingSizeVariants: Record<SizeKey, string> = {
   xl: "h-8 w-8",
 };
 
-const emit = defineEmits({
-  click: (event: MouseEvent) => true,
-  focus: (event: FocusEvent) => true,
-  blur: (event: FocusEvent) => true,
-  mouseenter: (event: MouseEvent) => true,
-  mouseleave: (event: MouseEvent) => true,
-  mousedown: (event: MouseEvent) => true,
-  mouseup: (event: MouseEvent) => true,
-});
+const emit = defineEmits<{
+  (e: "click", event: MouseEvent): void;
+  (e: "focus", event: FocusEvent): void;
+  (e: "blur", event: FocusEvent): void;
+  (e: "mouseenter", event: MouseEvent): void;
+  (e: "mouseleave", event: MouseEvent): void;
+  (e: "mousedown", event: MouseEvent): void;
+  (e: "mouseup", event: MouseEvent): void;
+}>();
 </script>
 
 <template>

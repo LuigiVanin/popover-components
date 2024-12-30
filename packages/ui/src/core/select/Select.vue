@@ -1,18 +1,16 @@
 <script
   lang="ts"
   setup
-  generic="T extends { value: string | number; label: string }"
+  generic="T extends BaseSelectOption"
 >
 import { cn } from "@popover/tw-utils";
 import { ChevronDown } from "lucide-vue-next";
 import { computed, ref } from "vue";
 
 import { CorePopover } from "../../main";
-import type { Position, SizeKey } from "../../types/index";
+import type { BaseSelectOption, Position, SizeKey } from "../../types/index";
 
 type SelectProps = {
-  // TODO: add disabled, loading and size props (maybe variant)
-  // TODO: improve position prop usage
   options: T[];
   class?: string;
   contentClass?: string;
@@ -121,12 +119,12 @@ const currentIndexChange = (diff: number) => {
     (currentIndex.value + diff + props.options.length) % props.options.length;
 };
 
-const emit = defineEmits({
-  "update:modelValue": (event: T) => true,
-  focus: (event: FocusEvent) => true,
-  blur: (event: FocusEvent) => true,
-  change: (event: T) => true,
-});
+const emit = defineEmits<{
+  (e: "update:modelValue", event: T): void;
+  (e: "focus", event: FocusEvent): void;
+  (e: "blur", event: FocusEvent): void;
+  (e: "change", event: T): void;
+}>();
 </script>
 
 <template>
@@ -136,7 +134,7 @@ const emit = defineEmits({
     :class="cn('w-full', positionVariant)"
     :wrapper-class="
       cn(
-        'relative wrapper flex w-full cursor-pointer items-center gap-2 rounded-md border border-neutral-300 focus-within:shadow-md focus-within:border-primary-400 hover:border-primary-400 focus-within:shadow-primary-300',
+        'group relative wrapper flex w-full cursor-pointer items-center gap-2 rounded-md border border-neutral-300 focus-within:shadow-md focus-within:border-primary-400 hover:border-primary-400 focus-within:shadow-primary-300',
         (props.disabled || props.loading) &&
           'opacity-80 cursor-not-allowed hover:border-neutral-300 focus-within:border-neutral-300 focus-within:shadow-md bg-neutral-50',
         sizeVariant.wrapper,
