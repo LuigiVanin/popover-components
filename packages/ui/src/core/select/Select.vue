@@ -1,14 +1,14 @@
 <script
   lang="ts"
   setup
-  generic="T extends { value: string | number; label: string }"
+  generic="T extends BaseSelectOption"
 >
 import { cn } from "@popover/tw-utils";
 import { ChevronDown } from "lucide-vue-next";
 import { computed, ref } from "vue";
 
 import { CorePopover } from "../../main";
-import type { Position, SizeKey } from "../../types/index";
+import type { BaseSelectOption, Position, SizeKey } from "../../types/index";
 
 type SelectProps = {
   options: T[];

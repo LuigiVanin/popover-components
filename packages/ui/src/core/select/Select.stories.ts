@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-import { Camera, Coffee } from "lucide-vue-next";
-import { ref } from "vue";
+import { Bike, Camera, Coffee, Volleyball } from "lucide-vue-next";
+import { computed, ref } from "vue";
 
+import { BaseSelectOption } from "../../types";
 import CoreSelect from "./Select.vue";
 
 const meta: Meta<typeof CoreSelect> = {
@@ -11,7 +12,7 @@ const meta: Meta<typeof CoreSelect> = {
       subtitle: "CoreSelect - @popover/ui/core/select",
       description: {
         component:
-          "The `CoreSelect` component is a versatile select input component for the `popover components` library. It supports multiple sizes, making it adaptable to various design needs. The `position` prop allows you to choose from different dropdown positions like `bottom`, `top`, `top left`, `top right`, `bottom left`, and `bottom right`. The `size` prop offers options such as `sm`, `md`, `lg`, and `xl`, ensuring the select input fits well in different UI contexts. Additionally, the component supports a `loading` state with a customizable loading spinner, and various slots for extending its functionality. The `options` generic `T` type should extend the behavior of the `{ value: string | number; label: string }` object.",
+          "The `CoreSelect` component is a versatile select input component for the `popover components` library. It supports multiple sizes, making it adaptable to various design needs. The `position` prop allows you to choose from different dropdown positions like `bottom`, `top`, `top left`, `top right`, `bottom left`, and `bottom right`. The `size` prop offers options such as `sm`, `md`, `lg`, and `xl`, ensuring the select input fits well in different UI contexts. <br /> Additionally, the component supports a `loading` state with a customizable loading spinner, and various slots for extending its functionality. The `options` generic `T` type should extend the behavior of the `{ value: string | number; label: string }` object.",
       },
     },
   },
@@ -111,7 +112,7 @@ const meta: Meta<typeof CoreSelect> = {
   decorators: [
     () => ({
       template: `
-        <div class="flex flex-row justify-center w-full min-h-[25vh] gap-5 items-center flex-wrap">
+        <div class="flex flex-row justify-center w-full h-[25vh] min-h-[300px] gap-5 items-center flex-wrap">
           <story/>
         </div>`,
     }),
@@ -171,7 +172,7 @@ export const CustomPrefixSelect: Story = {
     docs: {
       description: {
         story:
-          "This story demonstrates the `CoreSelect` component with a custom prefix slot. The prefix slot is used to add custom content before the select input.",
+          "This story demonstrates the `CoreSelect` component with a custom prefix slot. The prefix slot is used to add custom content before the select input. <br />  _Obs.:_ This prefix will overwrite the loading behaviour, if you want to keep the loading spinner, you need to add it manually.",
       },
     },
   },
@@ -221,6 +222,102 @@ export const CustomSuffixSelect: Story = {
           <template #sufix>
             <div class="flex items-center justify-center aspect-square h-[85%] my-1  ml-auto  group-hover:border-primary-400 group-hover:text-primary-500 group-focus-within:border-primary-400 group-focus-within:text-primary-500 transition-all duration-200 rounded-full border border-neutral-200 hover:bg-primary-100">
               <Camera :size="16" />
+            </div>
+          </template>
+        </CoreSelect>
+      `,
+    };
+  },
+};
+
+const customOptions = [
+  {
+    value: "digital-camera",
+    label: "Digital Camera",
+    icon: Camera,
+    price: "300,00 $",
+  },
+  {
+    value: "coffee-maker",
+    label: "Cafeteira Gourmet",
+    icon: Coffee,
+    price: "150,00 $",
+  },
+  {
+    value: "bike",
+    label: "Bike Off-Road",
+    price: "200,00 $",
+    icon: Bike,
+  },
+  {
+    value: "volleyball",
+    label: "volleyball Mikasa",
+    icon: Volleyball,
+    price: "50,00 $",
+  },
+];
+
+export const CustomOptionSelect: Story = {
+  args: {
+    options: [...customOptions] as BaseSelectOption[],
+    size: "md",
+    placeholder: "Select an item",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "This story demonstrates the `CoreSelect` component with custom options. Each option includes an icon and a price. The `option` slot is used to customize the display of each option in the dropdown.",
+      },
+    },
+  },
+  render: (args) => {
+    return {
+      components: { CoreSelect, Camera },
+      setup() {
+        const state1 = ref(false);
+        const state2 = ref(false);
+        const options = computed(() => customOptions);
+
+        return { args, state1, state2, options };
+      },
+      template: `
+        <CoreSelect v-bind="args" v-model="state1" class="w-full max-w-64" :options="options">
+          <template #prefix>
+            <span v-if="!!state1" class="group-hover:text-primary-500 group-focus-within:text-primary-500">
+              <component :is="state1.icon" :size="20" />
+            </span>
+          </template>
+          <template #option="{ item }">
+            <div class="flex items-center justify-between w-full px-2 py-2">
+              <div class="flex items-center gap-1"> 
+                <component :is="item.icon" :size="18" />
+                <item.icon :size="20" />
+                <span class="text-sm">{{ item.label }}</span> 
+              </div>
+              <span class="text-xs text-neutral-500">({{ item.price }})</span>
+            </div>
+          </template>
+        </CoreSelect>
+
+        <CoreSelect v-bind="args" v-model="state2" class="w-full max-w-64" content-class="px-0 py-0 gap-0" :options="options">
+          <template #prefix>
+            <span v-if="!!state2" class="group-hover:text-primary-500 group-focus-within:text-primary-500">
+              <component :is="state2.icon" :size="20" />
+            </span>
+          </template>
+          <template #option="{ item, isCurrentIndex, isSelected }">
+            <div :class="[
+              'flex items-center justify-between w-full px-2 py-2 rounded-none hover:bg-neutral-100', 
+              isCurrentIndex && 'bg-primary-100', 
+              isSelected && 'bg-primary-200'
+            ]">
+              <div class="flex items-center gap-1"> 
+                <component :is="item.icon" :size="18" />
+                <item.icon :size="20" />
+                <span class="text-sm">{{ item.label }}</span> 
+              </div>
+              <span class="text-xs text-neutral-500">({{ item.price }})</span>
             </div>
           </template>
         </CoreSelect>
