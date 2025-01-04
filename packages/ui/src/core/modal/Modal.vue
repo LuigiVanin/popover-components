@@ -1,14 +1,20 @@
 <script lang="ts" setup>
+import { cn } from "@popover/tw-utils";
+
 import { TransitionClasses } from "../../types";
 
 type ModalProps = {
   modelValue: boolean;
   teleported?: boolean;
   transition?: TransitionClasses;
+  class?: string;
+  overlayClass?: string;
 };
 
 const props = withDefaults(defineProps<ModalProps>(), {
   teleported: true,
+  class: "",
+  overlayClass: "",
   transition: () => ({
     enterActiveClass: "duration-150 ease-out",
     enterFromClass: "opacity-0 translate-y-3",
@@ -30,9 +36,16 @@ const props = withDefaults(defineProps<ModalProps>(), {
       :leave-from-class="props.transition?.leaveFromClass"
       :leave-to-class="props.transition?.leaveToClass"
     >
-      <div v-if="props.modelValue" class="">
-        <div class="modal-overlay"></div>
-        <div class="modal-card">
+      <div
+        v-if="props.modelValue"
+        class="fixed inset-0 z-50 flex items-center justify-center"
+      >
+        <div
+          :class="
+            cn('modal-overlay absolute inset-0 bg-black/40', props.overlayClass)
+          "
+        />
+        <div :class="cn('modal-card', props.class)">
           <slot></slot>
         </div>
       </div>
