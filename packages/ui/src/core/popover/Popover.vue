@@ -135,7 +135,7 @@ defineExpose({
       >
         <div
           v-if="isValidElement && props.modelValue"
-          class="popover-content bg-primary-800 fixed flex justify-center"
+          class="popover-content bg-primary-800 fixed z-50 flex justify-center"
           :style="popoverPositionStyle"
         >
           <div
