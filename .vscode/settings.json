@@ -18,6 +18,11 @@
   },
   "[vue]": {
     "editor.formatOnSave": true,
-  }
+
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+  },
+  "cSpell.language": "en,pt,pt-BR"
 
 }

@@ -1,15 +1,40 @@
 <script setup lang="ts">
 import { cn } from "@popover/tw-utils";
-import { CoreButton, CorePopover, CoreSelect } from "@popover/ui";
+import { CoreButton, CoreModal, CorePopover, CoreSelect } from "@popover/ui";
 import { Coffee } from "lucide-vue-next";
 import { onMounted, ref } from "vue";
 
 const showPopover = ref(false);
+const showModal = ref(false);
+const modalLoading = ref(false);
 const option = ref(null);
+
+const options = [
+  {
+    label: "Teste de valor 1",
+    value: "teste",
+  },
+  {
+    label: "Teste de valor 2",
+    value: "teste 2",
+  },
+  {
+    label: "Teste de valor 3",
+    value: "teste 3",
+  },
+];
 
 onMounted(() => {
   console.log(cn("p-5"));
 });
+
+const handleModalConfirm = () => {
+  modalLoading.value = true;
+  setTimeout(() => {
+    modalLoading.value = false;
+    showModal.value = false;
+  }, 2000);
+};
 </script>
 
 <template>
@@ -44,9 +69,9 @@ onMounted(() => {
 
           <template #content>
             <div
-              class="h-20 w-40 rounded-md border border-zinc-200 bg-neutral-50 shadow-lg"
+              class="h-20 w-40 rounded-md border border-zinc-200 bg-neutral-50 p-2 shadow-lg"
             >
-              <span class="bg-red-300"> abc </span>
+              <span class="font-bold"> abc </span>
             </div>
           </template>
         </CorePopover>
@@ -56,40 +81,10 @@ onMounted(() => {
         v-model="option"
         class="w-64"
         position="top"
-        :options="[
-          {
-            label: 'Teste de valor 1',
-            value: 'teste',
-          },
-          {
-            label: 'Teste de valor 2',
-            value: 'teste 2',
-          },
-          {
-            label: 'Teste de valor 3',
-            value: 'teste 3',
-          },
-        ]"
+        :options="options"
       />
 
-      <CoreSelect
-        v-model="option"
-        class="h-9 w-64 py-0"
-        :options="[
-          {
-            label: 'Teste de valor 1',
-            value: 'teste',
-          },
-          {
-            label: 'Teste de valor 2',
-            value: 'teste 2',
-          },
-          {
-            label: 'Teste de valor 3',
-            value: 'teste 3',
-          },
-        ]"
-      >
+      <CoreSelect v-model="option" class="h-9 w-64 py-0" :options="options">
         <template #prefix>
           <div
             class="flex h-full items-center border-r border-neutral-300 pr-2"
@@ -110,7 +105,56 @@ onMounted(() => {
           >
         </template>
       </CoreSelect>
+
+      <CoreButton @click="() => (showModal = !showModal)"> Teste </CoreButton>
     </main>
+
+    <CoreModal v-model="showModal" class="rounded-md bg-white shadow-xl" blur>
+      <div class="wrapper flex h-full min-h-[30vh] w-96 flex-col">
+        <header class="border-b border-neutral-200 p-3">
+          <p class="font-semibold">You sure?</p>
+        </header>
+        <main class="flex flex-1 flex-col gap-3 p-3 pb-4">
+          <p class="text-sm text-neutral-500">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            vitae efficitur leo. Duis ut lectus risus. Interdum et malesuada
+            fames ac ante ipsum primis in faucibus. Aenean placerat quis sapien
+            accumsan cursus. Nullam vulputate mauris a metus tempor efficitur.
+            Sed at condimentum tortor. Fusce rhoncus erat in sem ultrices
+            interdum. Vivamus in semper nulla, vel fermentum arcu. Nulla
+            fermentum ex ante, vestibulum auctor velit finibus vel. Maecenas
+            hendrerit dignissim orci et fringilla. Nulla tincidunt vel nisl ac
+            pellentesque. Proin vel mauris vel ligula viverra cursus.
+          </p>
+
+          <div class="flex flex-col">
+            <label class="mb-2 text-sm font-bold">Reason:</label>
+            <CoreSelect
+              v-model="option"
+              class="w-64"
+              size="sm"
+              :options="options"
+            />
+          </div>
+        </main>
+        <footer class="flex justify-end gap-2 border-t border-neutral-200 p-3">
+          <CoreButton
+            variant="simple"
+            :disabled="modalLoading"
+            @click="() => (showModal = false)"
+          >
+            Cancel
+          </CoreButton>
+          <CoreButton
+            variant="soft"
+            :loading="modalLoading"
+            @click="handleModalConfirm"
+          >
+            Confirm
+          </CoreButton>
+        </footer>
+      </div>
+    </CoreModal>
   </div>
 </template>
 
