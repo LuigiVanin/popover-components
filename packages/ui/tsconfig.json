@@ -5,6 +5,11 @@
     "composite": true,
     // "lib": ["ESNext", "DOM"],
     // "outDir": "./dist",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
   },
   
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],

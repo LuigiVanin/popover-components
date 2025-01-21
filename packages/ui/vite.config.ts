@@ -1,5 +1,8 @@
+/// <reference types="vitest/config" />
+/// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
 import path from "path";
+import AutoImport from "unplugin-auto-import";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -24,5 +27,16 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), dts()],
+  plugins: [
+    vue(),
+    dts(),
+    AutoImport.vite({
+      imports: ["vitest"],
+      dts: true,
+    }),
+  ],
+
+  test: {
+    include: ["src/**/*.spec.ts", "tests/**/*.spec.ts"],
+  },
 });
