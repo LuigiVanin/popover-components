@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/vue3";
+import { Check, Trash2 } from "lucide-vue-next";
 import { ref } from "vue";
 
 import CoreButton from "../button/Button.vue";
@@ -83,6 +84,15 @@ const meta: Meta<typeof CoreModal> = {
         "ID of the element that describes the modal for accessibility.",
     },
   },
+
+  decorators: [
+    () => ({
+      template: `
+        <div class="flex flex-row justify-center w-full min-h-[25vh] gap-5 items-center flex-wrap">
+          <story/>
+        </div>`,
+    }),
+  ],
 
   render: (args) => {
     return {
@@ -190,32 +200,73 @@ export const CustomTransitionModal: Story = {
   },
 };
 
-// export const BlurOverlayModal: Story = {
-//   args: {
-//     modelValue: true,
-//     blur: true,
-//   },
-//   parameters: {
-//     docs: {
-//       description: {
-//         story:
-//           "This story demonstrates the `CoreModal` component with a backdrop blur effect applied to the overlay.",
-//       },
-//     },
-//   },
-// };
+export const PersistentModal: Story = {
+  args: {
+    persist: true,
+    closeButton: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "This story demonstrates the `CoreModal` component in a persistent state. The modal will not close when clicking outside or pressing the Escape key.",
+      },
+    },
+  },
 
-// export const PersistentModal: Story = {
-//   args: {
-//     modelValue: true,
-//     persist: true,
-//   },
-//   parameters: {
-//     docs: {
-//       description: {
-//         story:
-//           "This story demonstrates the `CoreModal` component in a persistent state. The modal will not close when clicking outside or pressing the Escape key.",
-//       },
-//     },
-//   },
-// };
+  render: (args) => {
+    return {
+      components: { CoreModal, CoreSelect, CoreButton, Check, Trash2 },
+      setup() {
+        const modalLoading = ref(false);
+        const showModal = ref(false);
+
+        const handleModalConfirm = () => {
+          modalLoading.value = true;
+          setTimeout(() => {
+            modalLoading.value = false;
+            showModal.value = false;
+          }, 2000);
+        };
+
+        return { options, args, modalLoading, showModal, handleModalConfirm };
+      },
+      template: `
+        <CoreButton @click="showModal = true">Open Modal</CoreButton>
+        <CoreModal v-model="showModal" v-bind="args" class="rounded-md bg-white shadow-xl border border-neutral-200">
+          <div class="wrapper flex h-full min-h-[30vh] w-96 flex-col">
+            <header class="border-b border-neutral-200 p-3 bg-red-500 rounded-t-md">
+              <p class="font-bold text-neutral-50">Danger! Are you sure?</p>
+            </header>
+            <main class="flex flex-1 flex-col gap-3 p-3 pb-4 ">
+              <p class="text-sm text-neutral-500">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+                vitae efficitur leo. Duis ut lectus risus. Interdum et malesuada
+                fames ac ante ipsum primis in faucibus.
+              </p>
+            </main>
+            <footer class="flex justify-end gap-2 border-t border-neutral-200 p-3">
+              <CoreButton
+                variant="link"
+                class="text-red-500"
+                :disabled="modalLoading"
+                @click="() => (showModal = false)"
+              >
+                Close
+              </CoreButton>
+              <CoreButton
+                variant="normal"
+                class="bg-red-500 border-red-500"
+                @click="handleModalConfirm"
+              >
+                <Check v-if="modalLoading" class="w-5 h-5" />
+                <Trash2 v-else class="w-5 h-5" />
+                Confirm
+              </CoreButton>
+            </footer>
+          </div>
+        </CoreModal>
+        `,
+    };
+  },
+};

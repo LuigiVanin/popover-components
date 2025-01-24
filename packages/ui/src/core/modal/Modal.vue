@@ -45,6 +45,8 @@ const emit = defineEmits<{
 
 const modalRef = ref<HTMLElement | null>(null);
 
+const persistAnimation = ref<boolean>(false);
+
 const close = () => {
   emit("update:modelValue", false);
 };
@@ -85,6 +87,16 @@ const showHandler = () => {
   document.addEventListener("keydown", handleKeydown);
   document.addEventListener("focus", trapFocusHandler);
   document.body.classList.add("modal-open");
+};
+
+const triggerPersistAnation = () => {
+  if (props.persist) {
+    persistAnimation.value = true;
+
+    setTimeout(() => {
+      persistAnimation.value = false;
+    }, 150);
+  }
 };
 
 onBeforeUnmount(() => destroyHandler());
@@ -135,13 +147,16 @@ watch(
         <div
           v-if="props.modelValue"
           ref="modalRef"
-          class="fixed inset-0 z-40 flex items-center justify-center"
+          :class="[
+            'fixed inset-0 z-40 flex items-center justify-center',
+            persistAnimation && 'persist-animation',
+          ]"
           role="dialog"
           aria-modal="true"
           :aria-labelledby="props.ariaLabelledby"
           :aria-describedby="props.ariaDescribedby"
           @keydown.esc="close"
-          @click="() => !props.persist && close()"
+          @click="() => (!props.persist ? close() : triggerPersistAnation())"
         >
           <div :class="cn('modal-card relative z-50', props.class)" @click.stop>
             <button
@@ -165,5 +180,18 @@ watch(
 <style>
 body.modal-open {
   overflow: hidden !important;
+}
+
+.persist-animation {
+  animation: persist-animation 0.15s ease-out;
+}
+
+@keyframes persist-animation {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
