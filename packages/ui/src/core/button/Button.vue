@@ -72,8 +72,8 @@ const emit = defineEmits<{
     @click="emit('click', $event)"
     @focus="emit('focus', $event)"
     @blur="emit('blur', $event)"
-    @mouseenter="emit('mouseenter', $event)"
-    @mouseleave="emit('mouseleave', $event)"
+    @mouseover="emit('mouseenter', $event)"
+    @mouseout="emit('mouseleave', $event)"
     @mousedown="emit('mousedown', $event)"
     @mouseup="emit('mouseup', $event)"
   >

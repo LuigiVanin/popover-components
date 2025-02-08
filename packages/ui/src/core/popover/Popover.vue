@@ -43,6 +43,8 @@ const props = withDefaults(defineProps<CorePopoverProps>(), {
 const popoverCoreRef: Ref<HTMLElement | null> = ref(null);
 const popoverContentRef: Ref<HTMLElement | null> = ref(null);
 
+const persistAnimation = ref<boolean>(false);
+
 const { top, height, width, bottom, left, right } = useElementBounding(
   // eslint-disable-next-line
   popoverCoreRef as any,
@@ -96,6 +98,16 @@ const closePopover = (event: MouseEvent) => {
     }
 
     if (!hasTargetElement) emit("update:modelValue", false);
+  } else triggerPersistAnimation();
+};
+
+const triggerPersistAnimation = () => {
+  if (props.persistent) {
+    persistAnimation.value = true;
+
+    setTimeout(() => {
+      persistAnimation.value = false;
+    }, 150);
   }
 };
 
@@ -142,7 +154,12 @@ defineExpose({
             ref="popoverContentRef"
             role="tooltip"
             :class="
-              cn('popover-box absolute', positionVariantsClasses, props.class)
+              cn(
+                'popover-box absolute',
+                positionVariantsClasses,
+                props.class,
+                persistAnimation && 'persist-animation',
+              )
             "
           >
             <slot name="content" />
@@ -152,3 +169,18 @@ defineExpose({
     </Teleport>
   </div>
 </template>
+
+<style>
+.persist-animation {
+  animation: persist-animation 0.15s ease-out;
+}
+
+@keyframes persist-animation {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

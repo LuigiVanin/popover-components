@@ -89,7 +89,7 @@ const showHandler = () => {
   document.body.classList.add("modal-open");
 };
 
-const triggerPersistAnation = () => {
+const triggerPersistAnimation = () => {
   if (props.persist) {
     persistAnimation.value = true;
 
@@ -156,7 +156,7 @@ watch(
           :aria-labelledby="props.ariaLabelledby"
           :aria-describedby="props.ariaDescribedby"
           @keydown.esc="close"
-          @click="() => (!props.persist ? close() : triggerPersistAnation())"
+          @click="() => (!props.persist ? close() : triggerPersistAnimation())"
         >
           <div :class="cn('modal-card relative z-50', props.class)" @click.stop>
             <button
