@@ -45,6 +45,8 @@ const emit = defineEmits<{
 
 const modalRef = ref<HTMLElement | null>(null);
 
+const persistAnimation = ref<boolean>(false);
+
 const close = () => {
   emit("update:modelValue", false);
 };
@@ -87,6 +89,16 @@ const showHandler = () => {
   document.body.classList.add("modal-open");
 };
 
+const triggerPersistAnimation = () => {
+  if (props.persist) {
+    persistAnimation.value = true;
+
+    setTimeout(() => {
+      persistAnimation.value = false;
+    }, 150);
+  }
+};
+
 onBeforeUnmount(() => destroyHandler());
 
 watch(
@@ -103,55 +115,83 @@ watch(
 
 <template>
   <Teleport :disabled="!props.teleported" to="body">
-    <Transition
-      :enter-active-class="props.transition?.enterActiveClass"
-      :enter-from-class="props.transition?.enterFromClass"
-      :enter-to-class="props.transition?.enterToClass"
-      :leave-active-class="props.transition?.leaveActiveClass"
-      :leave-from-class="props.transition?.leaveFromClass"
-      :leave-to-class="props.transition?.leaveToClass"
-    >
-      <div
-        v-if="props.modelValue"
-        ref="modalRef"
-        class="fixed inset-0 z-40 flex items-center justify-center"
-        role="dialog"
-        aria-modal="true"
-        :aria-labelledby="props.ariaLabelledby"
-        :aria-describedby="props.ariaDescribedby"
-        @keydown.esc="close"
-        @click="() => !props.persist && close()"
+    <div class="modal-wrapper-teleport">
+      <Transition
+        enter-active-class="duration-150 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="duration-150 ease-in"
+        leave-from-class=""
+        leave-to-class="opacity-0"
       >
         <div
+          v-if="props.modelValue"
           :class="
             cn(
-              'modal-overlay absolute inset-0 bg-black/30',
+              'modal-overlay fixed inset-0 bg-black/30',
               props.blur && 'backdrop-blur-[2px]',
               props.transparentOverlay && 'bg-transparent',
               props.overlayClass,
             )
           "
         />
-        <div :class="cn('modal-card relative z-50', props.class)" @click.stop>
-          <button
-            v-if="props.closeButton"
-            type="button"
-            class="close-btn absolute right-4 top-4 flex flex-row items-center text-neutral-500"
-            @click="close"
-          >
-            <slot name="close-btn">
-              <CloseIcon :size="19" />
-            </slot>
-          </button>
-          <slot></slot>
+      </Transition>
+      <Transition
+        :enter-active-class="props.transition?.enterActiveClass"
+        :enter-from-class="props.transition?.enterFromClass"
+        :enter-to-class="props.transition?.enterToClass"
+        :leave-active-class="props.transition?.leaveActiveClass"
+        :leave-from-class="props.transition?.leaveFromClass"
+        :leave-to-class="props.transition?.leaveToClass"
+      >
+        <div
+          v-if="props.modelValue"
+          ref="modalRef"
+          :class="[
+            'fixed inset-0 z-40 flex items-center justify-center',
+            persistAnimation && 'persist-animation',
+          ]"
+          role="dialog"
+          aria-modal="true"
+          :aria-labelledby="props.ariaLabelledby"
+          :aria-describedby="props.ariaDescribedby"
+          @keydown.esc="close"
+          @click="() => (!props.persist ? close() : triggerPersistAnimation())"
+        >
+          <div :class="cn('modal-card relative z-50', props.class)" @click.stop>
+            <button
+              v-if="props.closeButton"
+              type="button"
+              class="close-btn absolute right-4 top-4 flex flex-row items-center text-neutral-500"
+              @click="close"
+            >
+              <slot name="close-btn">
+                <CloseIcon :size="19" />
+              </slot>
+            </button>
+            <slot></slot>
+          </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </div>
   </Teleport>
 </template>
 
 <style>
 body.modal-open {
   overflow: hidden !important;
+}
+
+.persist-animation {
+  animation: persist-animation 0.15s ease-out;
+}
+
+@keyframes persist-animation {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
