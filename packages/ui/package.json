@@ -14,7 +14,10 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest --config ./vite.config.ts run"
+    "vitest": "vitest",
+    "test": "vitest --config ./vite.config.ts run",
+    "test:dev": "vitest --config ./vite.config.ts --watch"
+
   },
   "dependencies": {
     "@popover/tw-utils": "workspace:^",
@@ -36,8 +39,11 @@
     "@storybook/test": "^8.4.7",
     "@storybook/vue3": "^8.4.7",
     "@storybook/vue3-vite": "^8.4.7",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/vue": "^8.1.0",
     "@types/node": "^22.9.0",
     "@vitejs/plugin-vue": "^5.1.4",
+    "jsdom": "^26.0.0",
     "storybook": "^8.4.7",
     "typescript": "~5.6.2",
     "unplugin-auto-import": "^19.0.0",
