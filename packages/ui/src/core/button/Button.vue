@@ -69,7 +69,7 @@ const emit = defineEmits<{
     ]"
     :type="props.type"
     :disabled="props.disabled"
-    @click="emit('click', $event)"
+    @click="!props.disabled && emit('click', $event)"
     @focus="emit('focus', $event)"
     @blur="emit('blur', $event)"
     @mouseover="emit('mouseenter', $event)"

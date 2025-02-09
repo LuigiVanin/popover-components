@@ -9,7 +9,8 @@
     "ui": "pnpm --filter @popover/ui",
     "storybook": "pnpm ui storybook",
     "dev:client": "pnpm --filter @popover/client dev",
-    "dev": "pnpm --recursive --parallel --stream run dev"
+    "dev": "pnpm --recursive --parallel --stream run dev",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
