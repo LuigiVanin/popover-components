@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "pnpm ui test",
+    "test:dev": "pnpm ui test:dev",
     "client": "pnpm --filter @popover/client",
     "ui": "pnpm --filter @popover/ui",
     "storybook": "pnpm ui storybook",
