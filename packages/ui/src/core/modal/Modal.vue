@@ -38,6 +38,7 @@ const props = withDefaults(defineProps<ModalProps>(), {
   }),
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  id: undefined,
 });
 
 const emit = defineEmits<{
