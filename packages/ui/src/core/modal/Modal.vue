@@ -17,6 +17,7 @@ type ModalProps = {
   persist?: boolean;
   ariaLabelledby?: string;
   ariaDescribedby?: string;
+  id?: string;
 };
 
 const props = withDefaults(defineProps<ModalProps>(), {
@@ -37,6 +38,7 @@ const props = withDefaults(defineProps<ModalProps>(), {
   }),
   ariaLabelledby: undefined,
   ariaDescribedby: undefined,
+  id: undefined,
 });
 
 const emit = defineEmits<{
@@ -115,7 +117,7 @@ watch(
 
 <template>
   <Teleport :disabled="!props.teleported" to="body">
-    <div class="modal-wrapper-teleport">
+    <div :id="props.id" class="modal-wrapper-teleport">
       <Transition
         enter-active-class="duration-150 ease-out"
         enter-from-class="opacity-0"
@@ -158,7 +160,11 @@ watch(
           @keydown.esc="close"
           @click="() => (!props.persist ? close() : triggerPersistAnimation())"
         >
-          <div :class="cn('modal-card relative z-50', props.class)" @click.stop>
+          <div
+            :id="`${props.id}-card`"
+            :class="cn('modal-card relative z-50', props.class)"
+            @click.stop
+          >
             <button
               v-if="props.closeButton"
               type="button"

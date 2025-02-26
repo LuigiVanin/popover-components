@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "pnpm install && pnpm setup:ui && pnpm setup:client",
+    "setup:ui": "pnpm ui add @popover/tailwind-config@workspace:* && pnpm ui add @popover/tw-utils@workspace:*",
+    "setup:client": "pnpm client add @popover/tailwind-config@workspace:* && pnpm client add @popover/tw-utils@workspace:* && pnpm client add @popover/ui@workspace:*",
+    "test": "pnpm ui test",
+    "test:dev": "pnpm ui test:dev",
     "client": "pnpm --filter @popover/client",
     "ui": "pnpm --filter @popover/ui",
     "storybook": "pnpm ui storybook",
