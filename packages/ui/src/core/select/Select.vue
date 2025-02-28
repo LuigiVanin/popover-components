@@ -1,8 +1,4 @@
-<script
-  lang="ts"
-  setup
-  generic="T extends BaseSelectOption"
->
+<script lang="ts" setup generic="T extends BaseSelectOption">
 import { cn } from "@popover/tw-utils";
 import { ChevronDown } from "lucide-vue-next";
 import { computed, ref } from "vue";
@@ -153,6 +149,7 @@ const emit = defineEmits<{
             'h-4 w-4',
           )
         "
+        data-testid="loading"
       />
     </slot>
     <div>
@@ -184,6 +181,7 @@ const emit = defineEmits<{
       :aria-activedescendant="activeDescendant"
       :value="modelValue?.value"
       :disabled="props.disabled || props.loading"
+      :placeholder="props.placeholder"
       @focus="onFocusinput"
       @blur="onBlurInput"
       @keydown.esc="closePopover"

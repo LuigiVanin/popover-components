@@ -12,7 +12,7 @@ const meta: Meta<typeof CorePopover> = {
       subtitle: "CorePopover - @popover/ui/core/popover",
       description: {
         component:
-          "The `CorePopover` component is a versatile and customizable popover for the `popover components` library. It supports various features such as teleportation, transitions, and persistence. The `transition` prop allows you to define custom transition classes for the popover's enter and leave animations. The `persistent` prop prevents the popover from closing when clicking outside.",
+          "The `CorePopover` component is a versatile and customizable popover for the `popover components` library. It supports various features such as teleportation, transitions, and persistence. The `transition` prop allows you to define custom transition classes for the popover's enter and leave animations. The `persist` prop prevents the popover from closing when clicking outside.",
       },
     },
   },
@@ -34,7 +34,7 @@ const meta: Meta<typeof CorePopover> = {
       ],
       description: "Position of the popover relative to the trigger element.",
     },
-    persistent: {
+    persist: {
       control: "boolean",
       description: "If true, the popover will not close when clicking outside.",
     },
@@ -196,12 +196,12 @@ export const PersistentPopover: Story = {
     docs: {
       description: {
         story:
-          "This story demonstrates the `CorePopover` component in a persistent state. The popover will not close when clicking outside, only with direct action. The `persistent` prop prevents the popover from closing when clicking outside.",
+          "This story demonstrates the `CorePopover` component in a persistent state. The popover will not close when clicking outside, only with direct action. The `persist` prop prevents the popover from closing when clicking outside.",
       },
     },
   },
   args: {
-    persistent: true,
+    persist: true,
   },
   render: (args) => {
     return {
@@ -212,7 +212,7 @@ export const PersistentPopover: Story = {
         return { args, showPopover };
       },
       template: `
-      <CorePopover v-model="showPopover" position="bottom" persistent v-bind="args">
+      <CorePopover v-model="showPopover" position="bottom" persist v-bind="args">
         <CoreButton
           class="px-4 py-1"
           size="md"

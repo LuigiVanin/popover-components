@@ -7,39 +7,45 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 // https://vite.dev/config/
-export default defineConfig({
-  build: {
-    outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true,
+export default defineConfig(({ mode }) => {
+  console.log("mode", mode);
 
-    lib: {
-      entry: path.resolve(__dirname, "src/main.ts"),
-      formats: ["es"],
-      name: "ui",
-    },
-    rollupOptions: {
-      // Set Vue as an external dependency, so its not bundled into the library
-      external: ["vue"],
-      output: {
-        globals: {
-          Vue: "vue",
+  process.env.TEST_ENV = mode;
+
+  return {
+    build: {
+      outDir: path.resolve(__dirname, "dist"),
+      emptyOutDir: true,
+
+      lib: {
+        entry: path.resolve(__dirname, "src/main.ts"),
+        formats: ["es"],
+        name: "ui",
+      },
+      rollupOptions: {
+        // Set Vue as an external dependency, so its not bundled into the library
+        external: ["vue"],
+        output: {
+          globals: {
+            Vue: "vue",
+          },
         },
       },
     },
-  },
-  plugins: [
-    vue(),
-    dts(),
-    AutoImport.vite({
-      imports: ["vitest"],
-      dts: true,
-    }),
-  ],
+    plugins: [
+      vue(),
+      dts(),
+      AutoImport.vite({
+        imports: ["vitest"],
+        dts: true,
+      }),
+    ],
 
-  test: {
-    globals: true,
-    environment: "jsdom",
-    include: ["src/**/*.spec.ts", "tests/**/*.spec.ts"],
-    setupFiles: ["./tests/setup-tests.ts"],
-  },
+    test: {
+      globals: true,
+      environment: "jsdom",
+      include: ["src/**/*.spec.ts", "tests/**/*.spec.ts"],
+      setupFiles: ["./tests/setup-tests.ts"],
+    },
+  };
 });
