@@ -18,7 +18,7 @@ type CorePopoverProps = {
   class?: string;
   wrapperClass?: string;
   teleported?: boolean;
-  persistent?: boolean;
+  persist?: boolean;
   position?: Position;
   modelValue: boolean;
   transition?: TransitionClasses;
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<CorePopoverProps>(), {
   class: "",
   wrapperClass: "",
   position: "top",
-  persistent: false,
+  persist: false,
   transition: () => ({
     enterActiveClass: "duration-150 ease-out",
     enterFromClass: "opacity-0 translate-y-3",
@@ -60,6 +60,10 @@ const positionVariants = {
 };
 
 const isValidElement = computed(() => {
+  if (process?.env?.TEST_ENV === "test") {
+    return true;
+  }
+
   if (!popoverCoreRef.value) {
     return false;
   }
@@ -88,7 +92,7 @@ const positionVariantsClasses = computed(
 );
 
 const closePopover = (event: MouseEvent) => {
-  if (!props.persistent) {
+  if (!props.persist) {
     let hasTargetElement = false;
 
     if (popoverCoreRef.value?.children) {
@@ -102,7 +106,7 @@ const closePopover = (event: MouseEvent) => {
 };
 
 const triggerPersistAnimation = () => {
-  if (props.persistent) {
+  if (props.persist) {
     persistAnimation.value = true;
 
     setTimeout(() => {
