@@ -13,5 +13,7 @@ RUN pnpm install
 
 RUN pnpm run setup
 
+RUN pnpm run build:pkg
+
 CMD ["pnpm", "test"]
 

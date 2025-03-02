@@ -14,7 +14,8 @@
     "storybook": "pnpm ui storybook",
     "dev:client": "pnpm --filter @popover/client dev",
     "dev": "pnpm --recursive --parallel --stream run dev",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:pkg": "pnpm --filter @popover/tw-utils build && pnpm ui build"
   },
   "keywords": [],
   "author": "",
