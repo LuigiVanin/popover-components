@@ -127,8 +127,6 @@ describe("Testing CorePopover", () => {
       },
     });
 
-    screen.debug();
-
     const popoverWrapper = document.querySelector(".popover-wrapper");
     expect(popoverWrapper).toHaveClass("custom-wrapper-class");
 
