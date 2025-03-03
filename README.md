@@ -64,7 +64,7 @@ import { CorePopover, CoreButton } from '@popover/components';
 
 #### Running StoryBook
 
-To use the storybook on the project, run the following command:
+To use the **storybook** on the project, run the following command:
 
 ```sh
 $ pnpm storybook
@@ -88,6 +88,7 @@ To start developing the project, follow these steps:
 3. Install the dependencies:
   ```sh
   $ pnpm install
+  $ pnpm setup
   ```
 
 4. Start the development server:
