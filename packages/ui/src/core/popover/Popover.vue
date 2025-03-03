@@ -60,8 +60,12 @@ const positionVariants = {
 };
 
 const isValidElement = computed(() => {
-  if (process?.env?.TEST_ENV === "test") {
-    return true;
+  try {
+    if (process?.env?.TEST_ENV === "test") {
+      return true;
+    }
+  } catch {
+    console.info("Not in test environment");
   }
 
   if (!popoverCoreRef.value) {
