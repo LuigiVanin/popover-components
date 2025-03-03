@@ -2,6 +2,12 @@
 
 Welcome to the Popover Components project! This repository contains a collection of reusable popover components for your web applications.
 
+## Demonstration
+
+To see the popover components in action, check out the demonstration below:
+
+![Popover Components Demo](./demo.gif)
+
 
 ## Table of Contents
 
@@ -45,6 +51,7 @@ To install the dependencies, run the following command:
 
 ```sh
 $ pnpm install
+$ pnpm setup
 ```
 
 ## Usage
@@ -54,6 +61,15 @@ To use the popover components in your project, import them as needed:
 ```js
 import { CorePopover, CoreButton } from '@popover/components';
 ```
+
+#### Running StoryBook
+
+To use the storybook on the project, run the following command:
+
+```sh
+$ pnpm storybook
+```
+
 
 ## Development
 
@@ -78,6 +94,7 @@ To start developing the project, follow these steps:
   ```sh
   $ pnpm dev
   ```
+
 
 ## License
 
