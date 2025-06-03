@@ -26,3 +26,4 @@ stories/
 **.tsbuildinfo
 vite.config.js
 *storybook.log
+storybook-static/
