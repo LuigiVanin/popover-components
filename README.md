@@ -6,7 +6,7 @@ Welcome to the Popover Components project! This repository contains a collection
 
 To see the popover components in action, check out the demonstration below:
 
-<h3 style="text-align: center;">
+<h3 align="center">
   <a href="https://popover-components-client.vercel.app/?path=/docs/core-button--docs"><< VISIT STORYBOOK DOCS >></a>
 </h3>
 
