@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    needs: lint-and-install
+    # needs: lint-and-install
 
     steps:
     - name: Checkout repository
@@ -20,6 +20,8 @@ jobs:
 
   lint-and-install:
     runs-on: ubuntu-latest
+
+    needs: test
 
     steps:
     - name: Checkout repository
@@ -34,7 +36,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '22'
-        cache: 'pnpm'
 
     - name: Install dependencies
       run: pnpm install
