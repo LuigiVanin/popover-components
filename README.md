@@ -6,6 +6,12 @@ Welcome to the Popover Components project! This repository contains a collection
 
 To see the popover components in action, check out the demonstration below:
 
+<h3 style="text-align: center;">
+  <a href="https://popover-components-client.vercel.app/?path=/docs/core-button--docs"><< VISIT STORYBOOK DOCS >></a>
+</h3>
+
+<br />
+
 ![Popover Components Demo](./demo.gif)
 
 
@@ -56,7 +62,15 @@ $ pnpm setup
 
 ## Usage
 
-To use the popover components in your project, import them as needed:
+To use the popover components in your project, it is necessary to build all the packages from the project using the command:
+
+```bash
+$ pnpm run -w build:pkg
+```
+
+
+After this, import them as needed after installing it into the respective app or package(examples on [/apps/client/src/App.vue](./apps/client/src/App.vue)):
+
 
 ```js
 import { CorePopover, CoreButton } from '@popover/components';
@@ -91,7 +105,13 @@ To start developing the project, follow these steps:
   $ pnpm setup
   ```
 
-4. Start the development server:
+4. Build packages
+  ```sh
+  $ pnpm run -w build:pkg
+  ```
+
+
+5. Start the development server:
   ```sh
   $ pnpm dev
   ```
